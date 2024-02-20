@@ -29,6 +29,9 @@ class users:
             if type == "Sale":
                 post1 = posts(self,type, info, price, place)
                 self.post.append(post1)
+            if type == "Text" or type == "Image" or type == "Sale":
+                for user in self.following:
+                    user.add_notifications(self.name+" posted "+type)
             return post1
 
     def print_notifications(self):

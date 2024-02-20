@@ -12,14 +12,17 @@ class posts:
     def like(self,user1):
             if not any(user1 == self.likes for users in self.likes):
                     self.likes.append(user1)
+                    self.user.add_notifications(user1.name+" liked your post: "+self.type)
 
     def unlike(self, user1):
         if any(user1 == self.likes for users in self.likes):
-            self.likes.remove(user1)
+            if self.user.name != user1.name:
+                self.likes.remove(user1)
 
     def comment(self, user1, comm):
             self.comments.append((user1, comm))
-
+            if  self.user.name != user1.name:
+                self.user.add_notifications(user1.name + " add comment "+ comm+" on you post: "+self.type)
     def discount(self,percent,password):
         if self.type=="Sale" and password==self.user.password:
             self.price= self.price * (1 - 0.01 * percent)
