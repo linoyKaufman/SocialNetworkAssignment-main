@@ -6,6 +6,7 @@ class SocialNetwork:
     def __init__ (self, name):
         self.name = name
         self.users=[]
+        print("The social network "+name+" was created!")
 
     def add_user(self, user):
         self.users.append(user)
@@ -27,10 +28,12 @@ class SocialNetwork:
         for user in self.users:
             if user.name == name and user.status:
                 user.set_status()
+                print(user.name+" disconnected")
                 break
     def log_in(self, name, password):
         for user in self.users:
             if user.name == name and user.status and user.password == password:
                 user.set_status()
+                print(user.name + " connected")
                 break
     
