@@ -13,7 +13,6 @@ class posts:
             if not any(user1 == self.likes for users in self.likes):
                     self.likes.append(user1)
                     self.user.add_notifications(user1.name+" liked your post: "+self.type)
-
     def unlike(self, user1):
         if any(user1 == self.likes for users in self.likes):
             if self.user.name != user1.name:
