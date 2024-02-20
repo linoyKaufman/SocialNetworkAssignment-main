@@ -14,35 +14,22 @@ class users:
         self.status = not self.status
 
     def follow(self, user1):
-        if self not in user1.followers:
+        if self not in user1.followers and self != user1:
             user1.followers.append(self)
             print(self.name + " started following " + user1.name)
 
     def unfollow(self, user1):
-        if self in user1.followers:
+        if self in user1.followers and self != user1:
             user1.followers.remove(self)
             print(self.name + " unfollowed " + user1.name)
 
     def publish_post(self, type, info, price=None, place=None):
-        if not any(self.post.info == info for post in self.post):
-            if type == "Text":
-                post1 = posts(self, type, info, price, place)
-                self.post.append(post1)
-                print(self.name + " published a post:")
-                print(info)
-            if type == "Image":
-                post1 = posts(self, type, info, price, place)
-                self.post.append(post1)
-                print(self.name + " posted a picture")
-            if type == "Sale":
-                post1 = posts(self, type, info, price, place)
-                self.post.append(post1)
-                priceS = str(price)
-                print(self.name + " posted a product for sale:")
-                print("For sale! " + info + ", price: " + priceS + ", pickup from: " + place)
-            if type == "Text" or type == "Image" or type == "Sale":
-                for user in self.followers:
-                    user.add_notifications(self.name + " has a new post")
+        if type == "Text" or type == "Image" or type == "Sale":
+            post1 = posts(self, type, info, price, place)
+            print(post1)
+            self.post.append(post1)
+            for user in self.followers:
+                user.add_notifications(self.name + " has a new post")
             return post1
 
     def print_notifications(self):
@@ -54,4 +41,5 @@ class users:
         self.notifications.append(notif)
 
     def __str__(self):
-        return "User name: " + self.name + ", Number of posts: " + str(len(self.post)) + ", Number of followers: " + str(len(self.followers))
+        return "User name: " + self.name + ", Number of posts: " + str(
+            len(self.post)) + ", Number of followers: " + str(len(self.followers))
