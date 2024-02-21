@@ -1,5 +1,7 @@
+from matplotlib import image as mpimg
+
 from postFactory import postFactory
-from matplotlib import pyplot as plt, image as mpimg
+import matplotlib.pyplot as plt
 
 
 class posts:
@@ -30,13 +32,7 @@ class posts:
     def display(self):
         if self.post.type == "Image":
             print("Shows picture")
-            try:
-                with open(self.post.info, 'rb') as img_file:
-                    img_data = img_file.read()
-            except FileNotFoundError:
-                return None
-            plt.imshow(img_data)
-            plt.axis('off')
+            plt.imshow(mpimg.imread(self.post.info))
             plt.show()
 
     def discount(self, percent, password):
