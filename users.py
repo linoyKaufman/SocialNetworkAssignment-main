@@ -1,8 +1,8 @@
-from Observable import Observable
+from Followers import Followers
 from posts import posts
 
 
-class users(Observable):
+class users(Followers):
     def __init__(self, name, password):
         super().__init__()
         self.name = name
@@ -15,13 +15,13 @@ class users(Observable):
         self.status = not self.status
 
     def follow(self, user1):
-        if self not in user1.observers and self != user1:
-            user1.add_observer(self)
+        if self not in user1.followers and self != user1:
+            user1.add_follower(self)
             print(self.name + " started following " + user1.name)
 
     def unfollow(self, user1):
-        if self in user1.observers and self != user1:
-            user1.remove_observer(self)
+        if self in user1.followers and self != user1:
+            user1.remove_follower(self)
             print(self.name + " unfollowed " + user1.name)
 
     def publish_post(self, type, info, price=None, place=None):
@@ -29,7 +29,7 @@ class users(Observable):
             post1 = posts(self, type, info, price, place)
             print(post1)
             self.post.append(post1)
-            self.notify_observer(self.name + " has a new post")
+            self.notify_follower(self.name + " has a new post")
             return post1
         else:
             print("Invalid post type:", type)
@@ -45,4 +45,4 @@ class users(Observable):
 
     def __str__(self):
         return "User name: " + self.name + ", Number of posts: " + str(
-            len(self.post)) + ", Number of followers: " + str(len(self.observers))
+            len(self.post)) + ", Number of followers: " + str(len(self.followers))
