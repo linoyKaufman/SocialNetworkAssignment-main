@@ -1,11 +1,17 @@
 from users import users
 
 
-
 class SocialNetwork:
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(SocialNetwork, cls).__new__(cls)
+            cls._instance.usersL = []
+        return cls._instance
+
     def __init__(self, name):
         self.name = name
-        self.usersL = []
         print("The social network " + name + " was created!")
 
     def add_user(self, user):
@@ -16,12 +22,14 @@ class SocialNetwork:
             self.usersL.remove(user)
 
     def sign_up(self, name, password):
-        if not any(users.name == name for users in self.usersL):
-            if 4 <= len(password) <= 8:
-                user1 = users(name, password)
-                user1.set_status()
-                self.add_user(user1)
-                return user1
+        for user in self.usersL:
+            if user.name == name:
+                return False
+        if 4 <= len(password) <= 8:
+            user1 = users(name, password)
+            user1.set_status()
+            self.add_user(user1)
+            return user1
 
     def log_out(self, name):
         for user in self.usersL:
@@ -40,5 +48,5 @@ class SocialNetwork:
     def __str__(self):
         result = (self.name + " social network:\n")
         for user in self.usersL:
-            result += str(user)+"\n"
+            result += str(user) + "\n"
         return result

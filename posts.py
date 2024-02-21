@@ -1,7 +1,4 @@
-from postFactory import postFactory  # Import the PostFactory class from the post_factory module
-
-
-
+from postFactory import postFactory
 class posts:
     def __init__(self, user, type, info, price, place):
         self.likes = []
