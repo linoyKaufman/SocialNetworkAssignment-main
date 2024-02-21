@@ -1,21 +1,17 @@
 from postFactory import postFactory
+
+
 class posts:
     def __init__(self, user, type, info, price, place):
         self.likes = []
         self.comments = []
-        self.type = type
-        self.info = info
-        self.available = True
-        self.price = price
-        self.place = place
-        self.user = user
-        self.post = postFactory.create_post(user, type, info, price, place, self.available)
+        self.post = postFactory.create_post(user, type, info, price, place, True)
 
     def like(self, user1):
-        if user1 != self.user and user1 not in self.likes:
+        if user1 != self.post.user and user1 not in self.likes:
             self.likes.append(user1)
-            self.user.add_notifications(user1.name + " liked your post")
-            print("notification to " + self.user.name + ": " + user1.name + " liked your post")
+            self.post.user.add_notifications(user1.name + " liked your post")
+            print("notification to " + self.post.user.name + ": " + user1.name + " liked your post")
 
     def unlike(self, user1):
         if user1 in self.likes:
@@ -23,9 +19,10 @@ class posts:
 
     def comment(self, user1, comm):
         self.comments.append((user1, comm))
-        if user1 != self.user:
-            self.user.add_notifications(user1.name + " commented on your post")
-            print("notification to " + self.user.name + ": " + user1.name + " commented on your post: " + comm)
+        if user1 != self.post.user:
+            self.post.user.add_notifications(user1.name + " commented on your post")
+            print("notification to " + self.post.user.name + ": " + user1.name + " commented on your post: " + comm)
+
     def __str__(self):
         return str(self.post)
 
@@ -33,13 +30,11 @@ class posts:
         print("Shows picture")
 
     def discount(self, percent, password):
-        if password == self.user.password:
-            self.price *= (1 - percent / 100)
+        if password == self.post.user.password:
             self.post.price *= (1 - percent / 100)
-            print("Discount on " + self.user.name + "'s product! the new price is: " + str(self.price))
+            print("Discount on " + self.post.user.name + "'s product! the new price is: " + str(self.post.price))
 
     def sold(self, password):
-        if password == self.user.password:
-            self.available = False
+        if password == self.post.user.password:
             self.post.available = False
-            print(self.user.name + "'s product is sold")
+            print(self.post.user.name + "'s product is sold")
