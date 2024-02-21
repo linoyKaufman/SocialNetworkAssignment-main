@@ -31,6 +31,9 @@ class users(Observable):
             self.post.append(post1)
             self.notify_observer(self.name + " has a new post")
             return post1
+        else:
+            print("Invalid post type:", type)
+            return None
 
     def print_notifications(self):
         print(self.name + "'s notifications:")
