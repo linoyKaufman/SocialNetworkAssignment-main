@@ -1,5 +1,5 @@
 class SalePost():
-    def __init__(self, user,type, info, price, place, available):
+    def __init__(self, user, type, info, price, place, available):
         self.user = user
         self.info = info
         self.type = type

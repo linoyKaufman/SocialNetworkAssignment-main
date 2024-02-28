@@ -2,16 +2,20 @@ from users import users
 
 
 class SocialNetwork:
-    _instance = None
+    instance = None
 
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(SocialNetwork, cls).__new__(cls)
-            cls._instance.usersL = []
-        return cls._instance
+    @staticmethod
+    def get_instance():
+        if not SocialNetwork.instance:
+            SocialNetwork.instance = SocialNetwork("SocialNetwork")
+        return SocialNetwork.instance
 
     def __init__(self, name):
+        if SocialNetwork.instance is not None:
+            raise Exception("already exist")
         self.name = name
+        self.usersL = []
+        SocialNetwork.instance = self
         print("The social network " + name + " was created!")
 
     def add_user(self, user):

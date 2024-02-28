@@ -36,11 +36,13 @@ class posts:
             plt.show()
 
     def discount(self, percent, password):
-        if password == self.post.user.password:
-            self.post.price *= (1 - percent / 100)
-            print("Discount on " + self.post.user.name + " product! the new price is: " + str(self.post.price))
+        if self.post.type == "Sale":
+            if password == self.post.user.password:
+                self.post.price *= (1 - percent / 100)
+                print("Discount on " + self.post.user.name + " product! the new price is: " + str(self.post.price))
 
     def sold(self, password):
-        if password == self.post.user.password:
-            self.post.available = False
-            print(self.post.user.name + "'s product is sold")
+        if self.post.type == "Sale":
+            if password == self.post.user.password:
+                self.post.available = False
+                print(self.post.user.name + "'s product is sold")
