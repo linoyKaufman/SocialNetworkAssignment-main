@@ -29,6 +29,7 @@ class posts:
     def __str__(self):
         return str(self.post)
 
+
     def display(self):
          try:
             if self.post.type == "Image":
@@ -36,10 +37,10 @@ class posts:
                 img = mpimg.imread(self.post.info)
                 plt.imshow(mpimg.imread(self.post.info))
                 plt.show()
-                else:
+            else:
                 print("Post type is not 'Image'.")
-        except Exception as e:
-            print("An error occurred while displaying the image:", e)
+         except Exception as e:
+            print("there is an error occurred while displaying the image:", e)
 
     def discount(self, percent, password):
         if self.post.type == "Sale":
